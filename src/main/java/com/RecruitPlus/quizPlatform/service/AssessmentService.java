@@ -39,7 +39,6 @@ public class AssessmentService {
     {
         Assessment findById=assessmentRepository.findById(assessment_id).orElseThrow(()->new AssessmentNotFoundException(assessment_id));
         findById.setAssessment_name(assessment_name.getAssessment_name());
-        findById.setTopics(assessment_name.getTopics());
         findById.setCreated_by(assessment_name.getCreated_by());
         findById.setLast_modified_by(assessment_name.getLast_modified_by());
         assessmentRepository.save(findById);
