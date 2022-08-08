@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
-@Document(collection = "assessments")
+@Document(collection = "assessment")
 @Data
 @Getter
 @Setter
@@ -17,8 +17,6 @@ public class Assessment {
     private String assessment_id;
     @Field("assessment_name")
     private String assessment_name;
-    @Field("topics")
-    private List<String> topics;
     @Field("question_id")
     private List<String> question_id;
     @Field("created_by")
