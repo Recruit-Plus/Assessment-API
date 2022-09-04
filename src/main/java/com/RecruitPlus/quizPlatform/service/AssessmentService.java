@@ -3,6 +3,7 @@ package com.RecruitPlus.quizPlatform.service;
 import com.RecruitPlus.quizPlatform.model.Assessment;
 import com.RecruitPlus.quizPlatform.repository.AssessmentRepository;
 import com.RecruitPlus.quizPlatform.Exception.AssessmentNotFoundException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
@@ -19,14 +20,22 @@ public class AssessmentService {
         return assessmentRepository.findAll();
     }
 
-    public Optional<Assessment> getAssessmentById(String assessment_id) {
+    public  List<Object> getAssessmentById(String assessment_id) {
         Optional<Assessment> assessment = assessmentRepository.findById(assessment_id);
-        if(assessment.isPresent()){
-            return assessmentRepository.findById(assessment_id);
+        if (assessment!=null){
+            List ques = assessment.get().getQuestion_id();
+            return CallQuestionAPI.useExchangeMethod(ques);
         }
         else{
-            throw new AssessmentNotFoundException(assessment_id);
+           throw new AssessmentNotFoundException(assessment_id);
         }
+//        if(assessment){
+//            System.out.println(assessment);
+//            return assessmentRepository.findById(assessment_id);
+//        }
+//        else{
+//            throw new AssessmentNotFoundException(assessment_id);
+//        }
     }
 
     public Assessment saveNewAssessment(Assessment assessment)

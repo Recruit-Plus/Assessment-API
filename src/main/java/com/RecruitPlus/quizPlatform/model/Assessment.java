@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.sql.Time;
 import java.util.List;
 
 @Document(collection = "assessment")
@@ -23,4 +24,6 @@ public class Assessment {
     private String created_by;
     @Field("last_modified_by")
     private String last_modified_by;
+    @Field
+    private float duration;
 }

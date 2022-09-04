@@ -10,6 +10,7 @@ import java.util.*;
 import com.RecruitPlus.quizPlatform.Exception.AssessmentNotFoundException;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/assessments/v1")
 public class AssessmentController {
     @Autowired
@@ -22,7 +23,7 @@ public class AssessmentController {
     }
 
     @GetMapping("/assessment/{assessment_id}")
-    public Optional<Assessment> getAssessmentById(@PathVariable(value = "assessment_id") String assessment_id){
+    public List<Object> getAssessmentById(@PathVariable(value = "assessment_id") String assessment_id){
         return assessmentService.getAssessmentById(assessment_id);
     }
 
