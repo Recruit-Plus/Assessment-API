@@ -47,10 +47,13 @@ public class AssessmentController {
     public void deleteAssessmentById(@PathVariable(value="assessment_id") String assessment_id) {
             assessmentService.deleteAssessment(assessment_id);
     }
-
     @GetMapping("/questions")
     public List<Object> getQuestions()
     {
         return assessmentService.getQuestions();
+    }
+    @GetMapping("/user/{user_id}")
+    public List<Assessment> getAssessmentByUser(@PathVariable(value="user_id") String user_id){
+        return assessmentService.getAssessmentByUserId(user_id);
     }
 }

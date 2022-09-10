@@ -20,6 +20,8 @@ public class Assessment {
     private String assessment_name;
     @Field("question_id")
     private List<String> question_id;
+    @Field
+    private List<String> user_id;
     @Field("created_by")
     private String created_by;
     @Field("last_modified_by")

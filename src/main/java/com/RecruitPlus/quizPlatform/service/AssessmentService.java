@@ -69,4 +69,15 @@ public class AssessmentService {
         return CallQuestionAPI.useExchangeMethodsOfRestTemplate();
     }
 
+    public List<Assessment> getAssessmentByUserId(String user_id) {
+        List<Assessment> assessments= assessmentRepository.findAll();
+        List<Assessment> assessmentForUser = new ArrayList<>();
+        for(Assessment assess:assessments){
+//            List<String> users=assess.getUser_id();
+            if((assess.getUser_id()).contains(user_id)){
+                assessmentForUser.add(assess);
+            }
+        }
+        return assessmentForUser;
+    }
 }
