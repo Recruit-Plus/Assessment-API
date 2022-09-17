@@ -19,8 +19,17 @@ public class AssessmentService {
 
         return assessmentRepository.findAll();
     }
+    public Optional<Assessment> getAssessmentById(String assessment_id) {
+        Optional<Assessment> assessment = assessmentRepository.findById(assessment_id);
+        if (assessment!=null){
+            return  assessment;
+        }
+        else{
+            throw new AssessmentNotFoundException(assessment_id);
+        }
 
-    public  List<Object> getAssessmentById(String assessment_id) {
+    }
+    public  List<Object> getQuestionsOfAssessmentById(String assessment_id) {
         Optional<Assessment> assessment = assessmentRepository.findById(assessment_id);
         if (assessment!=null){
             List ques = assessment.get().getQuestion_id();
@@ -29,13 +38,6 @@ public class AssessmentService {
         else{
            throw new AssessmentNotFoundException(assessment_id);
         }
-//        if(assessment){
-//            System.out.println(assessment);
-//            return assessmentRepository.findById(assessment_id);
-//        }
-//        else{
-//            throw new AssessmentNotFoundException(assessment_id);
-//        }
     }
 
     public Assessment saveNewAssessment(Assessment assessment)
@@ -73,11 +75,14 @@ public class AssessmentService {
         List<Assessment> assessments= assessmentRepository.findAll();
         List<Assessment> assessmentForUser = new ArrayList<>();
         for(Assessment assess:assessments){
-//            List<String> users=assess.getUser_id();
-            if((assess.getUser_id()).contains(user_id)){
-                assessmentForUser.add(assess);
+            List<String> users=assess.getUser_id();
+            if(!users.isEmpty()) {
+                if (users.contains(user_id)) {
+                    assessmentForUser.add(assess);
+                }
             }
         }
         return assessmentForUser;
     }
+
 }

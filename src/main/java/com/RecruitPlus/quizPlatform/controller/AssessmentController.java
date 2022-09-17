@@ -23,8 +23,12 @@ public class AssessmentController {
     }
 
     @GetMapping("/assessment/{assessment_id}")
-    public List<Object> getAssessmentById(@PathVariable(value = "assessment_id") String assessment_id){
+    public Optional getAssessmentById(@PathVariable(value = "assessment_id") String assessment_id){
         return assessmentService.getAssessmentById(assessment_id);
+    }
+    @GetMapping("/assessment/questions/{assessment_id}")
+    public List<Object> getQuestionsOfAssessmentById(@PathVariable(value = "assessment_id") String assessment_id){
+        return assessmentService.getQuestionsOfAssessmentById(assessment_id);
     }
 
     @PostMapping("/assessment")
