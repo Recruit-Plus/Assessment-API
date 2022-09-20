@@ -85,4 +85,13 @@ public class AssessmentService {
         return assessmentForUser;
     }
 
+    public void deleteQuestionInAssessment(String assessment_id, String question_id) {
+        Assessment assessment=assessmentRepository.findById(assessment_id).orElseThrow(()->new AssessmentNotFoundException(assessment_id));
+        List<String> questions=assessment.getQuestion_id();
+        if(questions.contains(question_id)) {
+            questions.remove(question_id);
+            assessment.setQuestion_id(questions);
+        }
+        assessmentRepository.save(assessment);
+    }
 }
