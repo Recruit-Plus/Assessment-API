@@ -27,5 +27,7 @@ public class Assessment {
     @Field("last_modified_by")
     private String last_modified_by;
     @Field
+    private int score;
+    @Field
     private float duration;
 }
