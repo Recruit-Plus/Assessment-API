@@ -51,11 +51,20 @@ public class AssessmentController {
     public void deleteAssessmentById(@PathVariable(value="assessment_id") String assessment_id) {
             assessmentService.deleteAssessment(assessment_id);
     }
+
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    @DeleteMapping("/assessment/{assessment_id}/question/{question_id}")
+    public void deleteQuestionInAssessment(@PathVariable(value="assessment_id") String assessment_id,@PathVariable(value="question_id") String question_id,
+                                           @RequestParam(required=true) int score, @RequestParam(required=true) float duration){
+        assessmentService.deleteQuestionInAssessment(assessment_id,question_id,score,duration);
+    }
+
     @GetMapping("/questions")
     public List<Object> getQuestions()
     {
         return assessmentService.getQuestions();
     }
+
     @GetMapping("/user/{user_id}")
     public List<Assessment> getAssessmentByUser(@PathVariable(value="user_id") String user_id){
         return assessmentService.getAssessmentByUserId(user_id);

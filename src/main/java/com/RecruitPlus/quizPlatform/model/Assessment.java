@@ -9,10 +9,6 @@ import java.util.List;
 
 @Document(collection = "assessment")
 @Data
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Assessment {
     @Id
     private String assessment_id;
@@ -26,6 +22,8 @@ public class Assessment {
     private String created_by;
     @Field("last_modified_by")
     private String last_modified_by;
-    @Field
+    @Field("duration")
     private float duration;
+    @Field("score")
+    private int score;
 }

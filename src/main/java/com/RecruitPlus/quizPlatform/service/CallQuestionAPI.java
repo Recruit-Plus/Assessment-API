@@ -11,7 +11,11 @@ public class CallQuestionAPI {
     static RestTemplate restTemplate = new RestTemplate();
     static String baseUrl = "http://localhost:8081/questions/v1/";
 
-    private static List<Object> getListQuestionsByExchangeMethod(HttpEntity<Object> requestEntity) {
+     static List<Object> getListQuestionsByExchangeMethod() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<Object> requestEntity = new HttpEntity<>(headers);
         ResponseEntity<List> responseEntity = restTemplate.exchange(baseUrl + "questions",
                 HttpMethod.GET,
                 requestEntity,
@@ -20,18 +24,12 @@ public class CallQuestionAPI {
         return questions;
     }
 
-    static List<Object> useExchangeMethodsOfRestTemplate() {
 
+
+     static List<Object> getQuestionsByMultipleIdExchangeMethod(List question_id) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-
         HttpEntity<Object> requestEntity = new HttpEntity<>(headers);
-
-        return getListQuestionsByExchangeMethod(requestEntity);
-
-    }
-
-    private static List<Object> getQuestionsByMultipleIdExchangeMethod(HttpEntity<Object> requestEntity,List question_id) {
         ResponseEntity<List> responseEntity = restTemplate.exchange(baseUrl + "assessment/questions?question_ids="+question_id,
                 HttpMethod.GET,
                 requestEntity,
@@ -40,11 +38,5 @@ public class CallQuestionAPI {
         return questions;
     }
 
-    static List<Object> useExchangeMethod(List question_id) {
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<Object> requestEntity = new HttpEntity<>(headers);
-        return getQuestionsByMultipleIdExchangeMethod(requestEntity, question_id);
-    }
 }
