@@ -10,6 +10,7 @@ import java.util.*;
 import com.RecruitPlus.quizPlatform.Exception.AssessmentNotFoundException;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/assessments/v1")
 public class AssessmentController {
     @Autowired
@@ -22,8 +23,12 @@ public class AssessmentController {
     }
 
     @GetMapping("/assessment/{assessment_id}")
-    public Optional<Assessment> getAssessmentById(@PathVariable(value = "assessment_id") String assessment_id){
+    public Optional getAssessmentById(@PathVariable(value = "assessment_id") String assessment_id){
         return assessmentService.getAssessmentById(assessment_id);
+    }
+    @GetMapping("/assessment/questions/{assessment_id}")
+    public List<Object> getQuestionsOfAssessmentById(@PathVariable(value = "assessment_id") String assessment_id){
+        return assessmentService.getQuestionsOfAssessmentById(assessment_id);
     }
 
     @PostMapping("/assessment")
@@ -47,9 +52,21 @@ public class AssessmentController {
             assessmentService.deleteAssessment(assessment_id);
     }
 
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    @DeleteMapping("/assessment/{assessment_id}/question/{question_id}")
+    public void deleteQuestionInAssessment(@PathVariable(value="assessment_id") String assessment_id,@PathVariable(value="question_id") String question_id,
+                                           @RequestParam(required=true) int score, @RequestParam(required=true) float duration){
+        assessmentService.deleteQuestionInAssessment(assessment_id,question_id,score,duration);
+    }
+
     @GetMapping("/questions")
     public List<Object> getQuestions()
     {
         return assessmentService.getQuestions();
+    }
+
+    @GetMapping("/user/{user_id}")
+    public List<Assessment> getAssessmentByUser(@PathVariable(value="user_id") String user_id){
+        return assessmentService.getAssessmentByUserId(user_id);
     }
 }
